@@ -2,84 +2,94 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShopPop | Mini E-Commerce</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShopPop | Online Shopping</title>
 <style>
-:root{--blue:#258cf4;--navy:#102e65;--bg:#f1f8ff;--line:#e1edfa;--muted:#6b83a6}
+:root{--blue:#278cf5;--navy:#102c60;--bg:#f3f8ff;--line:#e2ebf7;--muted:#7184a1}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--navy);background:var(--bg)}
-button,input{font:inherit}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--navy)}
+button,input,select{font:inherit}
 button{cursor:pointer}
-header{background:#fff;padding:18px 4%;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 3px 15px #1b5b9010;position:sticky;top:0;z-index:5}
+header{position:sticky;top:0;z-index:5;background:white;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 3px 18px #234b7010}
 .brand{font-size:27px;font-weight:900}.brand span{color:var(--blue)}
 .tagline{font-size:12px;color:var(--muted);margin-top:5px}
-nav{display:flex;gap:25px}
-nav a{color:#526b91;text-decoration:none;font-weight:600}
-nav a:hover{color:var(--blue)}
-.container{max-width:1500px;margin:auto;padding:24px 4%}
-.top{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:24px;align-items:start}
-.hero{min-height:260px;border-radius:19px;background:linear-gradient(110deg,#d9eeff,#a9d8ff);padding:32px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;gap:15px}
-.hero h1{font-size:clamp(28px,4vw,43px);margin:0 0 12px;max-width:430px}
-.hero p{color:#456d9f;line-height:1.6;max-width:370px}
-.hero-art{font-size:clamp(80px,12vw,150px);filter:drop-shadow(0 12px 10px #3e79a944)}
-.btn{border:0;background:var(--blue);color:white;border-radius:12px;padding:12px 17px;font-weight:700}
-.btn:hover{filter:brightness(.95)}
-.filters{display:flex;gap:9px;flex-wrap:wrap;margin:23px 0}
-.filter{background:#fff;border:1px solid var(--line);border-radius:30px;padding:11px 17px;color:#526b91}
+nav{display:flex;gap:20px}nav a{text-decoration:none;color:#536b8d;font-weight:600}
+button{border:0}
+.btn{background:var(--blue);color:white;border-radius:11px;padding:12px 16px;font-weight:700}
+.btn:hover{background:#1477df}
+button:disabled{opacity:.6;cursor:not-allowed}
+.container{max-width:1450px;margin:auto;padding:25px 4%}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;align-items:start}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:32px;border-radius:20px;background:linear-gradient(115deg,#dcefff,#a9d8ff);overflow:hidden}
+.hero h1{font-size:clamp(29px,4vw,43px);margin:0 0 10px}
+.hero p{color:#486b98;line-height:1.6;max-width:360px}
+.hero img{width:38%;max-height:220px;object-fit:contain;border-radius:15px}
+.searchbar{display:flex;gap:8px;margin-top:20px}
+.searchbar input{width:100%;min-width:0;border:1px solid var(--line);border-radius:10px;padding:12px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}
+.filter{background:white;border:1px solid var(--line);padding:10px 15px;border-radius:30px;color:#526b91}
 .filter.active{background:var(--blue);color:white}
-.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.product{background:#fff;border-radius:17px;padding:14px;border:1px solid #e6effa;box-shadow:0 6px 20px #164f8410;min-width:0}
-.product-image{height:160px;border-radius:12px;background:linear-gradient(140deg,#e5f3ff,#c9e4fc);display:grid;place-items:center;font-size:75px}
-.product h3{font-size:15px;margin:14px 0 8px}
-.rating{font-size:13px;color:#f7b62d}
-.price{font-size:18px;font-weight:800;margin:9px 0 13px}
-.product .btn{width:100%;padding:11px 6px}
-.cart{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px;box-shadow:0 6px 20px #164f8410;position:sticky;top:100px}
-.cart-title{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.count{background:var(--blue);color:white;border-radius:50%;padding:6px 10px;font-size:13px}
-.cart-items{margin-top:15px}
-.cart-item{display:grid;grid-template-columns:65px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
-.cart-img{height:65px;border-radius:10px;background:#e5f3ff;display:grid;place-items:center;font-size:33px}
-.cart-item h4{margin:2px 0 7px;font-size:14px}
-.cart-price{color:#526b91;font-size:14px}
-.qty{display:flex;align-items:center;gap:13px;margin-top:9px}
-.qty button{border:1px solid var(--line);background:white;color:var(--blue);border-radius:8px;padding:4px 9px}
-.remove{float:right;border:0;background:none;color:#7e94b2}
-.summary{margin-top:18px}
-.sumline{display:flex;justify-content:space-between;margin:12px 0;color:#526b91}
-.total{font-size:21px;font-weight:900;color:var(--navy);border-top:1px solid var(--line);padding-top:15px}
-.checkout{width:100%;margin-top:8px;padding:14px}
-.benefits{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.benefit{background:#e7f4ff;border:1px solid #d6eaff;padding:17px;border-radius:15px;font-size:13px}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.product{min-width:0;background:white;border:1px solid var(--line);border-radius:17px;padding:12px;box-shadow:0 5px 18px #18466b0c;display:flex;flex-direction:column}
+.product-img{width:100%;height:180px;object-fit:cover;background:#edf5ff;border-radius:12px}
+.product h3{font-size:15px;margin:13px 0 7px}
+.rating{font-size:13px;color:#f2ae25}
+.price{font-size:19px;font-weight:800;margin:10px 0}
+.old-price{font-size:13px;color:#94a3b8;text-decoration:line-through;font-weight:400;margin-left:5px}
+.product .btn{margin-top:auto;width:100%}
+.badge{font-size:11px;background:#e7f3ff;color:#1775d6;border-radius:6px;padding:5px 8px;align-self:flex-start;margin-top:8px}
+.cart{background:white;border:1px solid var(--line);border-radius:18px;padding:18px;position:sticky;top:95px;box-shadow:0 5px 18px #18466b0c}
+.cart-title{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.cart-title h2{font-size:20px}
+.count{background:var(--blue);color:white;border-radius:20px;padding:5px 9px;font-size:13px}
+.clear{background:none;color:var(--blue)}
+.cart-items{max-height:390px;overflow-y:auto}
+.cart-item{display:grid;grid-template-columns:68px minmax(0,1fr);gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.cart-item img{width:68px;height:68px;object-fit:cover;border-radius:10px;background:#edf5ff}
+.cart-item h4{font-size:13px;margin:3px 0 7px}
+.cart-price{font-size:14px;color:#536b8d}
+.remove{float:right;background:none;color:#8395ae;font-size:18px}
+.qty{display:flex;align-items:center;gap:12px;margin-top:8px}
+.qty button{background:#f0f7ff;color:var(--blue);border-radius:7px;padding:4px 9px}
+.summary{margin-top:15px}
+.line{display:flex;justify-content:space-between;gap:8px;margin:13px 0;color:#536b8d}
+.total{border-top:1px solid var(--line);padding-top:14px;font-size:21px;font-weight:900;color:var(--navy)}
+.checkout{width:100%;margin-top:5px}
+.empty{text-align:center;color:var(--muted);padding:24px 5px}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.benefit{background:#e8f4ff;border:1px solid #d9eaff;border-radius:14px;padding:15px;font-size:13px}
 .benefit strong{display:block;margin-bottom:7px}
-footer{text-align:center;color:var(--muted);padding:28px}
-.empty{text-align:center;padding:25px 5px;color:var(--muted)}
-.modal{position:fixed;inset:0;background:#071d3c99;display:none;place-items:center;padding:15px;z-index:10}
+footer{text-align:center;color:var(--muted);padding:25px}
+.modal{display:none;position:fixed;inset:0;background:#071d3c99;z-index:20;place-items:center;padding:15px}
 .modal.open{display:grid}
-.modal-box{background:white;border-radius:20px;padding:27px;width:min(440px,100%);box-shadow:0 20px 70px #0003}
-.modal-box h2{margin-top:0}
-.modal-box input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:7px 0 13px}
-.modal-actions{display:flex;gap:10px;margin-top:15px}
+.modal-box{background:white;padding:25px;border-radius:20px;width:min(440px,100%);max-height:90vh;overflow:auto}
+.modal-box input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;margin:7px 0 14px}
+.modal-actions{display:flex;gap:10px;margin-top:12px}
 .modal-actions button{flex:1}
-@media(max-width:1050px){.top{grid-template-columns:1fr}.cart{position:static}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.benefits{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){header{align-items:flex-start;flex-direction:column}nav{gap:17px;flex-wrap:wrap}.container{padding:15px 12px}.hero{padding:22px}.hero-art{font-size:65px}.products{gap:10px}.product{padding:9px}.product-image{height:115px;font-size:53px}.product h3{font-size:13px}.benefits{grid-template-columns:1fr 1fr}.cart{padding:15px}}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.cart{position:static}.products{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){header{flex-wrap:wrap}nav{order:3;width:100%;flex-wrap:wrap}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.product-img{height:150px}.benefits{grid-template-columns:repeat(2,1fr)}.hero{padding:22px}.hero img{width:36%}}
+@media(max-width:380px){.products{grid-template-columns:1fr}.product-img{height:220px}}
 </style>
 </head>
 <body>
 <header>
-  <div><div class="brand">🛍️ Shop<span>Pop</span></div><div class="tagline">Better Products. Happier You.</div></div>
-  <nav><a href="#home">Home</a><a href="#shop">Shop</a><a href="#benefits">About</a><a href="#footer">Contact</a></nav>
+  <div><div class="brand">Shop<span>Pop</span></div><div class="tagline">Better Products. Happier You.</div></div>
+  <nav><a href="#home">Home</a><a href="#shop">Shop</a><a href="#benefits">About</a></nav>
   <div>🛒 <strong id="headerCount">0</strong></div>
 </header>
 
 <main class="container">
-<div class="top">
+<div class="layout">
 <div>
 <section class="hero" id="home">
-<div><h1>Upgrade Your Everyday</h1><p>Trendy gadgets, stylish accessories and more — all in one place.</p><button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now →</button></div>
-<div class="hero-art">🎧</div>
+<div><h1>Upgrade Your Everyday</h1><p>Discover stylish gadgets, sneakers, bags and everyday essentials.</p><button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now →</button></div>
+<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=85" alt="Premium headphones">
 </section>
 
+<div class="searchbar">
+<input id="searchInput" type="search" placeholder="Search products..." aria-label="Search products">
+<button class="btn" id="searchBtn">Search</button>
+</div>
 <section id="shop">
 <div class="filters" id="filters"></div>
 <div class="products" id="products"></div>
@@ -88,112 +98,107 @@ footer{text-align:center;color:var(--muted);padding:28px}
 
 <aside>
 <section class="cart">
-<div class="cart-title"><h2>🛒 Your Cart <span class="count" id="cartCount">0</span></h2><button class="remove" onclick="clearCart()">Clear All</button></div>
+<div class="cart-title"><h2>🛒 Your Cart <span class="count" id="cartCount">0</span></h2><button class="clear" onclick="clearCart()">Clear</button></div>
 <div class="cart-items" id="cartItems"></div>
 <div class="summary">
-<div class="sumline"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
-<div class="sumline"><span>Shipping</span><strong id="shipping">Free</strong></div>
-<div class="sumline total"><span>Total</span><span id="total">$0.00</span></div>
-<button class="btn checkout" onclick="openCheckout()">🔒 Proceed to Checkout →</button>
+<div class="line"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+<div class="line"><span>Shipping</span><strong id="shipping">Free</strong></div>
+<div class="line total"><span>Total</span><span id="total">$0.00</span></div>
+<button class="btn checkout" onclick="openCheckout()">🔒 Checkout →</button>
 </div>
-</section>
-<section class="benefits" style="grid-template-columns:1fr;margin-top:18px">
-<div class="benefit"><strong>🚚 Free Shipping</strong>On orders over $50</div>
-<div class="benefit"><strong>🛡️ Secure Payments</strong>Safe checkout preview</div>
-<div class="benefit"><strong>↩️ Easy Returns</strong>Within 30 days</div>
 </section>
 </aside>
 </div>
 
 <section class="benefits" id="benefits">
-<div class="benefit"><strong>🚚 Fast & Free Shipping</strong>On orders over $50</div>
-<div class="benefit"><strong>🛡️ Secure Payments</strong>Safe checkout preview</div>
+<div class="benefit"><strong>🚚 Fast Shipping</strong>Free on orders over $50</div>
+<div class="benefit"><strong>🛡️ Secure Checkout</strong>Safe demo checkout</div>
 <div class="benefit"><strong>↩️ Easy Returns</strong>Within 30 days</div>
-<div class="benefit"><strong>💙 Happy Customers</strong>Shopping made simple</div>
+<div class="benefit"><strong>💙 Customer Care</strong>Shopping made simple</div>
 </section>
 </main>
-
-<footer id="footer">ShopPop · Mini E-Commerce Project · Built with HTML, CSS & JavaScript</footer>
+<footer>ShopPop · Mini E-Commerce Project · HTML, CSS & JavaScript</footer>
 
 <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
 <div class="modal-box">
-<h2 id="checkoutTitle">✨ Checkout Preview</h2>
-<p id="checkoutMessage">Review your order before placing it.</p>
+<h2 id="checkoutTitle">Checkout Preview</h2>
+<p id="checkoutMessage">Enter your details to preview your order.</p>
 <form id="checkoutForm">
-<label for="customerName">Your name</label>
-<input id="customerName" required placeholder="Enter your name">
+<label for="customerName">Full name</label>
+<input id="customerName" required placeholder="Your name">
 <label for="customerEmail">Email address</label>
 <input id="customerEmail" type="email" required placeholder="you@example.com">
 <label for="customerAddress">Delivery address</label>
 <input id="customerAddress" required placeholder="Your address">
-<div class="sumline total"><span>Order total</span><span id="checkoutTotal">$0.00</span></div>
+<div class="line total"><span>Order total</span><span id="checkoutTotal">$0.00</span></div>
 <div class="modal-actions">
-<button type="button" class="filter" onclick="closeCheckout()">Cancel</button>
-<button type="submit" class="btn">Confirm Demo Order</button>
+<button class="filter" type="button" onclick="closeCheckout()">Cancel</button>
+<button class="btn" type="submit">Confirm Demo Order</button>
 </div>
 </form>
 </div>
 </div>
 
 <script>
-const products = [
- {id:1,name:"Wireless Headphones",category:"Headphones",price:59.99,emoji:"🎧",rating:"4.8 (124)",label:"Best Seller"},
- {id:2,name:"Classic Sneakers",category:"Sneakers",price:49.99,emoji:"👟",rating:"4.6 (98)",label:"New"},
- {id:3,name:"Travel Backpack",category:"Backpacks",price:79.99,emoji:"🎒",rating:"4.7 (156)",label:"Popular"},
- {id:4,name:"Smart Watch",category:"Smartwatches",price:99.99,emoji:"⌚",rating:"4.5 (87)",label:"Trending"},
- {id:5,name:"Studio Earbuds",category:"Headphones",price:34.99,emoji:"🎵",rating:"4.6 (64)",label:"Compact"},
- {id:6,name:"Everyday Backpack",category:"Backpacks",price:44.99,emoji:"🎒",rating:"4.4 (51)",label:"Everyday"},
- {id:7,name:"Running Sneakers",category:"Sneakers",price:69.99,emoji:"👟",rating:"4.8 (102)",label:"Comfort"},
- {id:8,name:"Fitness Watch",category:"Smartwatches",price:89.99,emoji:"⌚",rating:"4.7 (73)",label:"Fitness"}
+const products=[
+{id:1,name:"Wireless Headphones",category:"Headphones",price:59.99,old:79.99,rating:"4.8 (124)",badge:"Best Seller",image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"},
+{id:2,name:"Classic Sneakers",category:"Sneakers",price:49.99,old:64.99,rating:"4.6 (98)",badge:"Popular",image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80"},
+{id:3,name:"Travel Backpack",category:"Backpacks",price:79.99,old:99.99,rating:"4.7 (156)",badge:"Trending",image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&q=80"},
+{id:4,name:"Smart Watch",category:"Smartwatches",price:99.99,old:129.99,rating:"4.5 (87)",badge:"New",image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80"},
+{id:5,name:"Premium Sunglasses",category:"Accessories",price:24.99,old:34.99,rating:"4.5 (65)",badge:"Summer Pick",image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=500&q=80"},
+{id:6,name:"Classic Wristwatch",category:"Accessories",price:69.99,old:89.99,rating:"4.7 (76)",badge:"Classic",image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=500&q=80"},
+{id:7,name:"Running Shoes",category:"Sneakers",price:69.99,old:89.99,rating:"4.8 (102)",badge:"Comfort",image:"https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=500&q=80"},
+{id:8,name:"Studio Headphones",category:"Headphones",price:89.99,old:109.99,rating:"4.7 (92)",badge:"Premium",image:"https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=500&q=80"},
+{id:9,name:"Leather Handbag",category:"Accessories",price:54.99,old:74.99,rating:"4.6 (83)",badge:"Stylish",image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80"},
+{id:10,name:"Compact Camera",category:"Electronics",price:149.99,old:179.99,rating:"4.8 (61)",badge:"Creator Pick",image:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80"},
+{id:11,name:"Wireless Speaker",category:"Electronics",price:39.99,old:54.99,rating:"4.5 (71)",badge:"Good Sound",image:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=500&q=80"},
+{id:12,name:"Everyday Backpack",category:"Backpacks",price:44.99,old:59.99,rating:"4.6 (54)",badge:"Everyday",image:"https://images.unsplash.com/photo-1622560480654-d96214fdc887?auto=format&fit=crop&w=500&q=80"}
 ];
 
-let cart = {};
-let activeCategory = "All Products";
-const categories = ["All Products","Headphones","Sneakers","Backpacks","Smartwatches"];
-const money = value => "$" + value.toFixed(2);
+let cart={};
+let category="All";
+let searchText="";
+const money=n=>"$"+n.toFixed(2);
+const categories=["All","Headphones","Sneakers","Backpacks","Smartwatches","Accessories","Electronics"];
 
 function renderFilters(){
- document.getElementById("filters").innerHTML = categories.map(category =>
- `<button class="filter ${activeCategory===category?"active":""}" data-category="${category}">${category}</button>`
- ).join("");
- document.querySelectorAll("[data-category]").forEach(button=>{
-  button.addEventListener("click",()=>{
-   activeCategory=button.dataset.category;
-   renderFilters();
-   renderProducts();
-  });
+ document.getElementById("filters").innerHTML=categories.map(c=>
+ `<button class="filter ${c===category?"active":""}" data-category="${c}">${c==="All"?"All Products":c}</button>`).join("");
+ document.querySelectorAll("[data-category]").forEach(b=>b.onclick=()=>{
+  category=b.dataset.category;renderFilters();renderProducts();
  });
 }
 
 function renderProducts(){
- const shown = activeCategory==="All Products" ? products : products.filter(p=>p.category===activeCategory);
- document.getElementById("products").innerHTML = shown.map(p=>`
+ const shown=products.filter(p=>
+ (category==="All"||p.category===category)&&
+ p.name.toLowerCase().includes(searchText.toLowerCase())
+ );
+ const root=document.getElementById("products");
+ if(!shown.length){root.innerHTML='<p>No products found. Try another search.</p>';return;}
+ root.innerHTML=shown.map(p=>`
  <article class="product">
-  <div class="product-image">${p.emoji}</div>
-  <h3>${p.name}</h3>
-  <div class="rating">★★★★★ <span style="color:#6680a5">${p.rating}</span></div>
-  <div class="price">${money(p.price)}</div>
-  <button class="btn" data-add="${p.id}">🛒 Add to Cart</button>
+ <img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/500x350/eaf3ff/23466d?text=Product+Photo'">
+ <span class="badge">${p.badge}</span>
+ <h3>${p.name}</h3>
+ <div class="rating">★★★★★ <span style="color:#7184a1">${p.rating}</span></div>
+ <div class="price">${money(p.price)} <span class="old-price">${money(p.old)}</span></div>
+ <button class="btn" data-add="${p.id}">Add to Cart</button>
  </article>`).join("");
- document.querySelectorAll("[data-add]").forEach(button=>{
-  button.addEventListener("click",()=>addToCart(Number(button.dataset.add)));
- });
+ document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>addToCart(Number(b.dataset.add)));
 }
 
 function addToCart(id){cart[id]=(cart[id]||0)+1;renderCart();}
 function changeQty(id,delta){
- cart[id]=(cart[id]||0)+delta;
- if(cart[id]<=0)delete cart[id];
- renderCart();
+ cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];renderCart();
 }
 function clearCart(){cart={};renderCart();}
 
 function renderCart(){
  const items=products.filter(p=>cart[p.id]);
- const count=items.reduce((sum,p)=>sum+cart[p.id],0);
- const subtotal=items.reduce((sum,p)=>sum+p.price*cart[p.id],0);
+ const count=items.reduce((s,p)=>s+cart[p.id],0);
+ const subtotal=items.reduce((s,p)=>s+p.price*cart[p.id],0);
  const shipping=subtotal===0||subtotal>=50?0:5.99;
-
  document.getElementById("headerCount").textContent=count;
  document.getElementById("cartCount").textContent=count;
  document.getElementById("subtotal").textContent=money(subtotal);
@@ -202,25 +207,19 @@ function renderCart(){
 
  document.getElementById("cartItems").innerHTML=items.length?items.map(p=>`
  <div class="cart-item">
-  <div class="cart-img">${p.emoji}</div>
-  <div>
-   <button class="remove" data-remove="${p.id}" aria-label="Remove ${p.name}">×</button>
-   <h4>${p.name}</h4>
-   <div class="cart-price">${money(p.price)}</div>
-   <div class="qty">
-    <button data-change="${p.id}" data-delta="-1" aria-label="Decrease quantity">−</button>
-    <strong>${cart[p.id]}</strong>
-    <button data-change="${p.id}" data-delta="1" aria-label="Increase quantity">+</button>
-   </div>
-  </div>
- </div>`).join(""):`<div class="empty">🛍️<p>Your cart is empty.</p>Add something you love!</div>`;
+ <img src="${p.image}" alt="${p.name}">
+ <div>
+ <button class="remove" data-remove="${p.id}" aria-label="Remove ${p.name}">×</button>
+ <h4>${p.name}</h4><div class="cart-price">${money(p.price)}</div>
+ <div class="qty">
+ <button data-change="${p.id}" data-delta="-1">−</button>
+ <strong>${cart[p.id]}</strong>
+ <button data-change="${p.id}" data-delta="1">+</button>
+ </div>
+ </div></div>`).join(""):'<div class="empty">Your cart is empty.<br><br>Add a product to get started!</div>';
 
- document.querySelectorAll("[data-change]").forEach(button=>{
-  button.addEventListener("click",()=>changeQty(Number(button.dataset.change),Number(button.dataset.delta)));
- });
- document.querySelectorAll("[data-remove]").forEach(button=>{
-  button.addEventListener("click",()=>{delete cart[Number(button.dataset.remove)];renderCart();});
- });
+ document.querySelectorAll("[data-change]").forEach(b=>b.onclick=()=>changeQty(Number(b.dataset.change),Number(b.dataset.delta)));
+ document.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{delete cart[Number(b.dataset.remove)];renderCart();});
 }
 
 function openCheckout(){
@@ -230,33 +229,22 @@ function openCheckout(){
 }
 function closeCheckout(){document.getElementById("checkoutModal").classList.remove("open");}
 
-document.getElementById("checkoutForm").addEventListener("submit",event=>{
- event.preventDefault();
+document.getElementById("searchBtn").onclick=()=>{
+ searchText=document.getElementById("searchInput").value.trim();renderProducts();
+};
+document.getElementById("searchInput").addEventListener("keydown",e=>{
+ if(e.key==="Enter"){e.preventDefault();searchText=e.target.value.trim();renderProducts();}
+});
+document.getElementById("checkoutForm").addEventListener("submit",e=>{
+ e.preventDefault();
  const name=document.getElementById("customerName").value.trim();
  document.getElementById("checkoutMessage").textContent=
- `Thanks, ${name}! Your demo order has been confirmed. No payment was taken.`;
+ `Thank you, ${name}! Your demo order is confirmed. No payment was taken.`;
  document.getElementById("checkoutForm").innerHTML=
- `<p>🎉 Your order preview is complete.</p><p>This assignment demo does not process real payments or save orders to a server.</p><button type="button" class="btn" onclick="finishOrder()">Continue Shopping</button>`;
+ '<p>✓ Order preview completed successfully.</p><p>This demo does not process real payments.</p><button type="button" class="btn" onclick="closeCheckout();clearCart();location.reload()">Continue Shopping</button>';
 });
-function finishOrder(){
- clearCart();
- closeCheckout();
- document.getElementById("checkoutMessage").textContent="Review your order before placing it.";
- document.getElementById("checkoutForm").reset();
- document.getElementById("checkoutForm").innerHTML=`
- <label for="customerName">Your name</label><input id="customerName" required placeholder="Enter your name">
- <label for="customerEmail">Email address</label><input id="customerEmail" type="email" required placeholder="you@example.com">
- <label for="customerAddress">Delivery address</label><input id="customerAddress" required placeholder="Your address">
- <div class="sumline total"><span>Order total</span><span id="checkoutTotal">$0.00</span></div>
- <div class="modal-actions"><button type="button" class="filter" onclick="closeCheckout()">Cancel</button><button type="submit" class="btn">Confirm Demo Order</button></div>`;
- document.getElementById("checkoutForm").addEventListener("submit",event=>{
-  event.preventDefault();
-  document.getElementById("checkoutMessage").textContent="Your demo order has been confirmed. No payment was taken.";
-  document.getElementById("checkoutForm").innerHTML='<button type="button" class="btn" onclick="finishOrder()">Continue Shopping</button>';
- });
-}
-document.getElementById("checkoutModal").addEventListener("click",event=>{
- if(event.target.id==="checkoutModal")closeCheckout();
+document.getElementById("checkoutModal").addEventListener("click",e=>{
+ if(e.target.id==="checkoutModal")closeCheckout();
 });
 
 renderFilters();
