@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopPop | Mini E-Commerce</title>
+<style>
+:root{--blue:#258cf4;--navy:#102e65;--bg:#f1f8ff;--line:#e1edfa;--muted:#6b83a6}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--navy);background:var(--bg)}
+button,input{font:inherit}
+button{cursor:pointer}
+header{background:#fff;padding:18px 4%;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 3px 15px #1b5b9010;position:sticky;top:0;z-index:5}
+.brand{font-size:27px;font-weight:900}.brand span{color:var(--blue)}
+.tagline{font-size:12px;color:var(--muted);margin-top:5px}
+nav{display:flex;gap:25px}
+nav a{color:#526b91;text-decoration:none;font-weight:600}
+nav a:hover{color:var(--blue)}
+.container{max-width:1500px;margin:auto;padding:24px 4%}
+.top{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:24px;align-items:start}
+.hero{min-height:260px;border-radius:19px;background:linear-gradient(110deg,#d9eeff,#a9d8ff);padding:32px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;gap:15px}
+.hero h1{font-size:clamp(28px,4vw,43px);margin:0 0 12px;max-width:430px}
+.hero p{color:#456d9f;line-height:1.6;max-width:370px}
+.hero-art{font-size:clamp(80px,12vw,150px);filter:drop-shadow(0 12px 10px #3e79a944)}
+.btn{border:0;background:var(--blue);color:white;border-radius:12px;padding:12px 17px;font-weight:700}
+.btn:hover{filter:brightness(.95)}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:23px 0}
+.filter{background:#fff;border:1px solid var(--line);border-radius:30px;padding:11px 17px;color:#526b91}
+.filter.active{background:var(--blue);color:white}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.product{background:#fff;border-radius:17px;padding:14px;border:1px solid #e6effa;box-shadow:0 6px 20px #164f8410;min-width:0}
+.product-image{height:160px;border-radius:12px;background:linear-gradient(140deg,#e5f3ff,#c9e4fc);display:grid;place-items:center;font-size:75px}
+.product h3{font-size:15px;margin:14px 0 8px}
+.rating{font-size:13px;color:#f7b62d}
+.price{font-size:18px;font-weight:800;margin:9px 0 13px}
+.product .btn{width:100%;padding:11px 6px}
+.cart{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px;box-shadow:0 6px 20px #164f8410;position:sticky;top:100px}
+.cart-title{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.count{background:var(--blue);color:white;border-radius:50%;padding:6px 10px;font-size:13px}
+.cart-items{margin-top:15px}
+.cart-item{display:grid;grid-template-columns:65px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.cart-img{height:65px;border-radius:10px;background:#e5f3ff;display:grid;place-items:center;font-size:33px}
+.cart-item h4{margin:2px 0 7px;font-size:14px}
+.cart-price{color:#526b91;font-size:14px}
+.qty{display:flex;align-items:center;gap:13px;margin-top:9px}
+.qty button{border:1px solid var(--line);background:white;color:var(--blue);border-radius:8px;padding:4px 9px}
+.remove{float:right;border:0;background:none;color:#7e94b2}
+.summary{margin-top:18px}
+.sumline{display:flex;justify-content:space-between;margin:12px 0;color:#526b91}
+.total{font-size:21px;font-weight:900;color:var(--navy);border-top:1px solid var(--line);padding-top:15px}
+.checkout{width:100%;margin-top:8px;padding:14px}
+.benefits{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.benefit{background:#e7f4ff;border:1px solid #d6eaff;padding:17px;border-radius:15px;font-size:13px}
+.benefit strong{display:block;margin-bottom:7px}
+footer{text-align:center;color:var(--muted);padding:28px}
+.empty{text-align:center;padding:25px 5px;color:var(--muted)}
+.modal{position:fixed;inset:0;background:#071d3c99;display:none;place-items:center;padding:15px;z-index:10}
+.modal.open{display:grid}
+.modal-box{background:white;border-radius:20px;padding:27px;width:min(440px,100%);box-shadow:0 20px 70px #0003}
+.modal-box h2{margin-top:0}
+.modal-box input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:7px 0 13px}
+.modal-actions{display:flex;gap:10px;margin-top:15px}
+.modal-actions button{flex:1}
+@media(max-width:1050px){.top{grid-template-columns:1fr}.cart{position:static}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.benefits{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){header{align-items:flex-start;flex-direction:column}nav{gap:17px;flex-wrap:wrap}.container{padding:15px 12px}.hero{padding:22px}.hero-art{font-size:65px}.products{gap:10px}.product{padding:9px}.product-image{height:115px;font-size:53px}.product h3{font-size:13px}.benefits{grid-template-columns:1fr 1fr}.cart{padding:15px}}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="brand">🛍️ Shop<span>Pop</span></div><div class="tagline">Better Products. Happier You.</div></div>
+  <nav><a href="#home">Home</a><a href="#shop">Shop</a><a href="#benefits">About</a><a href="#footer">Contact</a></nav>
+  <div>🛒 <strong id="headerCount">0</strong></div>
+</header>
+
+<main class="container">
+<div class="top">
+<div>
+<section class="hero" id="home">
+<div><h1>Upgrade Your Everyday</h1><p>Trendy gadgets, stylish accessories and more — all in one place.</p><button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now →</button></div>
+<div class="hero-art">🎧</div>
+</section>
+
+<section id="shop">
+<div class="filters" id="filters"></div>
+<div class="products" id="products"></div>
+</section>
+</div>
+
+<aside>
+<section class="cart">
+<div class="cart-title"><h2>🛒 Your Cart <span class="count" id="cartCount">0</span></h2><button class="remove" onclick="clearCart()">Clear All</button></div>
+<div class="cart-items" id="cartItems"></div>
+<div class="summary">
+<div class="sumline"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+<div class="sumline"><span>Shipping</span><strong id="shipping">Free</strong></div>
+<div class="sumline total"><span>Total</span><span id="total">$0.00</span></div>
+<button class="btn checkout" onclick="openCheckout()">🔒 Proceed to Checkout →</button>
+</div>
+</section>
+<section class="benefits" style="grid-template-columns:1fr;margin-top:18px">
+<div class="benefit"><strong>🚚 Free Shipping</strong>On orders over $50</div>
+<div class="benefit"><strong>🛡️ Secure Payments</strong>Safe checkout preview</div>
+<div class="benefit"><strong>↩️ Easy Returns</strong>Within 30 days</div>
+</section>
+</aside>
+</div>
+
+<section class="benefits" id="benefits">
+<div class="benefit"><strong>🚚 Fast & Free Shipping</strong>On orders over $50</div>
+<div class="benefit"><strong>🛡️ Secure Payments</strong>Safe checkout preview</div>
+<div class="benefit"><strong>↩️ Easy Returns</strong>Within 30 days</div>
+<div class="benefit"><strong>💙 Happy Customers</strong>Shopping made simple</div>
+</section>
+</main>
+
+<footer id="footer">ShopPop · Mini E-Commerce Project · Built with HTML, CSS & JavaScript</footer>
+
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+<div class="modal-box">
+<h2 id="checkoutTitle">✨ Checkout Preview</h2>
+<p id="checkoutMessage">Review your order before placing it.</p>
+<form id="checkoutForm">
+<label for="customerName">Your name</label>
+<input id="customerName" required placeholder="Enter your name">
+<label for="customerEmail">Email address</label>
+<input id="customerEmail" type="email" required placeholder="you@example.com">
+<label for="customerAddress">Delivery address</label>
+<input id="customerAddress" required placeholder="Your address">
+<div class="sumline total"><span>Order total</span><span id="checkoutTotal">$0.00</span></div>
+<div class="modal-actions">
+<button type="button" class="filter" onclick="closeCheckout()">Cancel</button>
+<button type="submit" class="btn">Confirm Demo Order</button>
+</div>
+</form>
+</div>
+</div>
+
+<script>
+const products = [
+ {id:1,name:"Wireless Headphones",category:"Headphones",price:59.99,emoji:"🎧",rating:"4.8 (124)",label:"Best Seller"},
+ {id:2,name:"Classic Sneakers",category:"Sneakers",price:49.99,emoji:"👟",rating:"4.6 (98)",label:"New"},
+ {id:3,name:"Travel Backpack",category:"Backpacks",price:79.99,emoji:"🎒",rating:"4.7 (156)",label:"Popular"},
+ {id:4,name:"Smart Watch",category:"Smartwatches",price:99.99,emoji:"⌚",rating:"4.5 (87)",label:"Trending"},
+ {id:5,name:"Studio Earbuds",category:"Headphones",price:34.99,emoji:"🎵",rating:"4.6 (64)",label:"Compact"},
+ {id:6,name:"Everyday Backpack",category:"Backpacks",price:44.99,emoji:"🎒",rating:"4.4 (51)",label:"Everyday"},
+ {id:7,name:"Running Sneakers",category:"Sneakers",price:69.99,emoji:"👟",rating:"4.8 (102)",label:"Comfort"},
+ {id:8,name:"Fitness Watch",category:"Smartwatches",price:89.99,emoji:"⌚",rating:"4.7 (73)",label:"Fitness"}
+];
+
+let cart = {};
+let activeCategory = "All Products";
+const categories = ["All Products","Headphones","Sneakers","Backpacks","Smartwatches"];
+const money = value => "$" + value.toFixed(2);
+
+function renderFilters(){
+ document.getElementById("filters").innerHTML = categories.map(category =>
+ `<button class="filter ${activeCategory===category?"active":""}" data-category="${category}">${category}</button>`
+ ).join("");
+ document.querySelectorAll("[data-category]").forEach(button=>{
+  button.addEventListener("click",()=>{
+   activeCategory=button.dataset.category;
+   renderFilters();
+   renderProducts();
+  });
+ });
+}
+
+function renderProducts(){
+ const shown = activeCategory==="All Products" ? products : products.filter(p=>p.category===activeCategory);
+ document.getElementById("products").innerHTML = shown.map(p=>`
+ <article class="product">
+  <div class="product-image">${p.emoji}</div>
+  <h3>${p.name}</h3>
+  <div class="rating">★★★★★ <span style="color:#6680a5">${p.rating}</span></div>
+  <div class="price">${money(p.price)}</div>
+  <button class="btn" data-add="${p.id}">🛒 Add to Cart</button>
+ </article>`).join("");
+ document.querySelectorAll("[data-add]").forEach(button=>{
+  button.addEventListener("click",()=>addToCart(Number(button.dataset.add)));
+ });
+}
+
+function addToCart(id){cart[id]=(cart[id]||0)+1;renderCart();}
+function changeQty(id,delta){
+ cart[id]=(cart[id]||0)+delta;
+ if(cart[id]<=0)delete cart[id];
+ renderCart();
+}
+function clearCart(){cart={};renderCart();}
+
+function renderCart(){
+ const items=products.filter(p=>cart[p.id]);
+ const count=items.reduce((sum,p)=>sum+cart[p.id],0);
+ const subtotal=items.reduce((sum,p)=>sum+p.price*cart[p.id],0);
+ const shipping=subtotal===0||subtotal>=50?0:5.99;
+
+ document.getElementById("headerCount").textContent=count;
+ document.getElementById("cartCount").textContent=count;
+ document.getElementById("subtotal").textContent=money(subtotal);
+ document.getElementById("shipping").textContent=shipping===0?"Free":money(shipping);
+ document.getElementById("total").textContent=money(subtotal+shipping);
+
+ document.getElementById("cartItems").innerHTML=items.length?items.map(p=>`
+ <div class="cart-item">
+  <div class="cart-img">${p.emoji}</div>
+  <div>
+   <button class="remove" data-remove="${p.id}" aria-label="Remove ${p.name}">×</button>
+   <h4>${p.name}</h4>
+   <div class="cart-price">${money(p.price)}</div>
+   <div class="qty">
+    <button data-change="${p.id}" data-delta="-1" aria-label="Decrease quantity">−</button>
+    <strong>${cart[p.id]}</strong>
+    <button data-change="${p.id}" data-delta="1" aria-label="Increase quantity">+</button>
+   </div>
+  </div>
+ </div>`).join(""):`<div class="empty">🛍️<p>Your cart is empty.</p>Add something you love!</div>`;
+
+ document.querySelectorAll("[data-change]").forEach(button=>{
+  button.addEventListener("click",()=>changeQty(Number(button.dataset.change),Number(button.dataset.delta)));
+ });
+ document.querySelectorAll("[data-remove]").forEach(button=>{
+  button.addEventListener("click",()=>{delete cart[Number(button.dataset.remove)];renderCart();});
+ });
+}
+
+function openCheckout(){
+ if(!Object.keys(cart).length){alert("Your cart is empty. Add a product first!");return;}
+ document.getElementById("checkoutTotal").textContent=document.getElementById("total").textContent;
+ document.getElementById("checkoutModal").classList.add("open");
+}
+function closeCheckout(){document.getElementById("checkoutModal").classList.remove("open");}
+
+document.getElementById("checkoutForm").addEventListener("submit",event=>{
+ event.preventDefault();
+ const name=document.getElementById("customerName").value.trim();
+ document.getElementById("checkoutMessage").textContent=
+ `Thanks, ${name}! Your demo order has been confirmed. No payment was taken.`;
+ document.getElementById("checkoutForm").innerHTML=
+ `<p>🎉 Your order preview is complete.</p><p>This assignment demo does not process real payments or save orders to a server.</p><button type="button" class="btn" onclick="finishOrder()">Continue Shopping</button>`;
+});
+function finishOrder(){
+ clearCart();
+ closeCheckout();
+ document.getElementById("checkoutMessage").textContent="Review your order before placing it.";
+ document.getElementById("checkoutForm").reset();
+ document.getElementById("checkoutForm").innerHTML=`
+ <label for="customerName">Your name</label><input id="customerName" required placeholder="Enter your name">
+ <label for="customerEmail">Email address</label><input id="customerEmail" type="email" required placeholder="you@example.com">
+ <label for="customerAddress">Delivery address</label><input id="customerAddress" required placeholder="Your address">
+ <div class="sumline total"><span>Order total</span><span id="checkoutTotal">$0.00</span></div>
+ <div class="modal-actions"><button type="button" class="filter" onclick="closeCheckout()">Cancel</button><button type="submit" class="btn">Confirm Demo Order</button></div>`;
+ document.getElementById("checkoutForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  document.getElementById("checkoutMessage").textContent="Your demo order has been confirmed. No payment was taken.";
+  document.getElementById("checkoutForm").innerHTML='<button type="button" class="btn" onclick="finishOrder()">Continue Shopping</button>';
+ });
+}
+document.getElementById("checkoutModal").addEventListener("click",event=>{
+ if(event.target.id==="checkoutModal")closeCheckout();
+});
+
+renderFilters();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
